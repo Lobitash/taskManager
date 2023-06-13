@@ -1,4 +1,3 @@
-import Database from '@ioc:Adonis/Lucid/Database'
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 import Roles from 'App/Enums/Roles'
 

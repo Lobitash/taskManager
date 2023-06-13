@@ -1,5 +1,5 @@
 
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
+import { schema, rules} from '@ioc:Adonis/Core/Validator'
 
 export default class UserValidator {
   public static registerSchema = schema.create({
@@ -14,7 +14,7 @@ export default class UserValidator {
   }) 
 } 
 
-
+ 
 
 //defautl (In case u neede it 😉)
 // import { schema, CustomMessages } from '@ioc:Adonis/Core/Validator'
