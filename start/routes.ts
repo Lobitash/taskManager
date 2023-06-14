@@ -18,7 +18,7 @@ Route.group(()=>{
     
     // Task routes
     
-    Route.get('/tasks/:id', 'TasksController.getTask').middleware('auth')
+    Route.get('/tasks/:id', 'TasksController.getTask').middleware('auth').middleware('adminRoleAuthorization')
     Route.post('/tasks','TasksController.store').middleware('auth')
 
 

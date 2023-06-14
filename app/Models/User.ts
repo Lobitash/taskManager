@@ -37,11 +37,11 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @hasMany(() => Task)
-  public tasks: HasMany<typeof Task>;
+  // @hasMany(() => Task)
+  // public tasks: HasMany<typeof Task>;
 
-  // @belongsTo(()=> Task)
-  // public tasks: BelongsTo<typeof Task>
+  @belongsTo(()=> Task)
+  public tasks: BelongsTo<typeof Task>
 
   @belongsTo(()=> Role)
   public role: BelongsTo<typeof Role>

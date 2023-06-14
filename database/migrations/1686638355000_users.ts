@@ -11,7 +11,7 @@ export default class extends BaseSchema {
       table.string('email', 255).notNullable().unique()
       table.string('password', 180).notNullable()
       table.string('remember_me_token').nullable()
-      table.integer('role_id').unsigned().references('id').inTable('roles').defaultTo(Roles.USER)
+      table.string('UserRole').unsigned().references('name').inTable('roles').defaultTo(Roles.USER)
       //table.enum('role', ['admin', 'user']).notNullable().defaultTo('user')
       table.string('photo_path')
       table.timestamp('created_at', { useTz: true }).notNullable().defaultTo(this.now())
