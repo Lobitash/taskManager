@@ -14,8 +14,8 @@ export default class extends BaseSchema {
       table.integer('role_id').unsigned().references('id').inTable('roles').defaultTo(Roles.USER)
       //table.enum('role', ['admin', 'user']).notNullable().defaultTo('user')
       table.string('photo_path')
-      table.timestamp('created_at', { useTz: true })
-      table.timestamp('updated_at', { useTz: true })
+      table.timestamp('created_at', { useTz: true }).notNullable().defaultTo(this.now())
+      table.timestamp('updated_at', { useTz: true }).notNullable().defaultTo(this.now())
     })
   }
 

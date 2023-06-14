@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.string('name').notNullable()
       table.string('description').notNullable()
       table.enum('priority', ['high','medium','low']).notNullable().defaultTo('medium')
-      //table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
+      table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
       table.timestamp('created_at', {useTz: true}).notNullable().defaultTo(this.now())
       table.timestamp('updated_at', {useTz: true}).notNullable().defaultTo(this.now())
     //  table.timestamps(true)

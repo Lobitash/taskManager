@@ -7,7 +7,7 @@ export default class TasksController {
 
 
 
-    public async showTask({ params }: HttpContextContract) {
+    public async getTask({ params }: HttpContextContract) {
         const { id } = params;
     
         const task = await Task.findOrFail(id);
@@ -15,21 +15,31 @@ export default class TasksController {
         return task;
     }
 
+ 
 
-
-    public async store ({ request }: HttpContextContract) {
+    public async store ({ request, auth }: HttpContextContract) {
 
         const validatedData = await request.validate({ schema: TaskValidator.storeSchema})
-       
+        const user = auth.user!
+
         const task = new Task();
         task.name = validatedData.name
         task.description= validatedData.description
-        //task.id=validatedData.userId
+        
+        if (!user) {
+            throw new Error('User not authenticated');
+          }
+        task.userId = user.id
        
+        // if (auth.isLoggedIn) {
+        //     await auth.user?.related('tasks')
+        //   }
         await task.save();
   
          return task;
     } 
+
+    //public Async 
 
 }
  

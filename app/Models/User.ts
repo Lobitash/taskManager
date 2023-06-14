@@ -1,11 +1,17 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column , hasMany , HasMany } from '@ioc:Adonis/Lucid/Orm'
+import Hash from '@ioc:Adonis/Core/Hash'
+import { BaseModel, column , hasMany , HasMany , beforeSave, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import Role from './Role'
+import Task from './Task'
 // hasMany, HasMany
 //import Task from 'App/Models/Task'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
+
+  @column()
+  public roleId: number
 
   @column()
   public name: string
@@ -17,7 +23,10 @@ export default class User extends BaseModel {
   public password: string
 
   @column()
-  public role: 'admin' | 'user'
+  public rememberMeToken: string | null
+
+  // @column()
+  // public role: 'admin' | 'user'
  
   @column()
   public photoPath: string
@@ -27,6 +36,23 @@ export default class User extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @hasMany(() => Task)
+  public tasks: HasMany<typeof Task>;
+
+  // @belongsTo(()=> Task)
+  // public tasks: BelongsTo<typeof Task>
+
+  @belongsTo(()=> Role)
+  public role: BelongsTo<typeof Role>
+
+  @beforeSave()
+  public static async hashPassword (user : User) {
+    if(user.$dirty.password){
+      user.password = await Hash.make(user.password)
+    }
+  }
+
 
   //@hasMany(() => Task)
   //public tasks: HasMany<typeof Task>

@@ -20,10 +20,13 @@ export default class AuthController {
 
 
         try{ 
-         const token= await auth.use ('api').attempt(email , password)
-         return token.toJSON
+         const token= await auth.use ('api').attempt(email , password, {
+            expiresIn: '7 days'
+          })
+         return token.toJSON()
 
-        } catch(_error) { 
+        } catch(error) { 
+            return error
         }
 
         
