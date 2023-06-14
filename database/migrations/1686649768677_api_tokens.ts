@@ -1,18 +1,17 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'users'
+  protected tableName = 'api_tokens'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id').primary()
+      table.increments('id')
       table.string('name').notNullable()
-      table.string('email').notNullable().unique()
-      table.string('password').notNullable()
-      table.enum('role', ['admin' , 'user']).notNullable().defaultTo('user')
-      table.string('photo_path')
+      table.string('token').notNullable()
+      table.string('type').notNullable()
+      table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
       table.timestamp('created_at', { useTz: true })
-      table.timestamp('updated_at', { useTz: true })
+      table.timestamp('expires_at', { useTz: true })
     })
   }
 

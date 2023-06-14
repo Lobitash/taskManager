@@ -1,35 +1,43 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
-import UserValidator from 'App/Validators/UserValidator';
+//import UserValidator from 'App/Validators/UserValidator';
 
 export default class UsersController {
 
-    //Get a user by Id
-    public async show({ params }: HttpContextContract) {
+
+    public async getUsers({ params }: HttpContextContract) {
         const { id } = params;
-    
-        const user = await User.findOrFail(id);
-    
-        return user;
-    }
+      
+        let query = User.query().select('name', 'id', 'photo_path', 'created_at');
+      
+        if (id) {
+          const user = await query.where('id', id).firstOrFail();
+          return user;
+        } else {
+          const users = await query;
+          return users;
+        }
+      }
+
 
     //Saving a User in DataBase
+    //I added this to auth (Don't need it anymore )
 
-    public async store ({ request }: HttpContextContract) {
-        const validatedData= await request.validate({schema : UserValidator.registerSchema})
+    // public async store ({ request }: HttpContextContract) {
+    //     const validatedData= await request.validate({schema : UserValidator.registerSchema})
 
-        //const { name, email, password } = request.only(['name', 'email', 'password']);
+    //     //const { name, email, password } = request.only(['name', 'email', 'password']);
 
-        const user = new User();
-        user.name = validatedData.name;
-        user.email = validatedData.email;
-        user.password = validatedData.password;
+    //     const user = new User();
+    //     user.name = validatedData.name;
+    //     user.email = validatedData.email;
+    //     user.password = validatedData.password;
   
     
-        await user.save();
+    //     await user.save();
   
-         return user;
-    }    
+    //      return user;
+    // }    
 
     // Update a user
     
