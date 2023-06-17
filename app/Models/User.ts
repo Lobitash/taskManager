@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { BaseModel, column , hasMany , HasMany , beforeSave, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column , hasOne , HasOne , beforeSave, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import Role from './Role'
 import Task from './Task'
+import ProfilePicture from './ProfilePicture'
 // hasMany, HasMany
 //import Task from 'App/Models/Task'
 
@@ -11,7 +12,7 @@ export default class User extends BaseModel {
   public id: number
 
   @column()
-  public roleId: number
+  public role_Id: number
 
   @column()
   public name: string
@@ -29,7 +30,7 @@ export default class User extends BaseModel {
   // public role: 'admin' | 'user'
  
   @column()
-  public photoPath: string
+  public profile_picture: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -37,8 +38,9 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  // @hasMany(() => Task)
-  // public tasks: HasMany<typeof Task>;
+
+  @hasOne(() => ProfilePicture)
+  public profile: HasOne<typeof ProfilePicture>
 
   @belongsTo(()=> Task)
   public tasks: BelongsTo<typeof Task>

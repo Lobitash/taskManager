@@ -21,6 +21,9 @@ export default class Task extends BaseModel {
   @column()
   public userId: number;
 
+  @column()
+  public file: string
+
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>;
 

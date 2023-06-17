@@ -9,7 +9,7 @@ export default class adminRoleAuthorization {
     //const userRole = auth.user?.roleId
 
     // 1 = Use , 2= Admin
-      if (auth.user?.roleId !== 2 ) {
+      if (auth.user?.role_Id !== 2 ) {
       return response.unauthorized({ error: 'Unauthorized' })
     } else {
       await next()

@@ -1,7 +1,9 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Application from '@ioc:Adonis/Core/Application'
 import User from 'App/Models/User'
+import profilePictureValidator from '../../Validators/profilePictureValidation';
 //import UserValidator from 'App/Validators/UserValidator';
-
+import ProfilePicture from '../../Models/ProfilePicture';
 export default class UsersController {
 
 
@@ -62,6 +64,44 @@ export default class UsersController {
 
         return { message: 'User deleted successfully' }
     }
+
+
+    public async uploadProfilePicture({ auth, request , response }: HttpContextContract) {
+      
+      const validatedData = await request.validate({ schema: profilePictureValidator.storeSchema})
+      const file = validatedData.Profile_Picture
+      const user = auth.user!
+
+      if(!file)return response.badRequest({ message : "Something Wenr Wrong"})
+      await file.move(Application.tmpPath('profile_picture'))
+      
+      const profilePicture = new ProfilePicture()
+
+      profilePicture.file_name= file.fileName  as string
+      profilePicture.file_path = file.filePath  as string
+      profilePicture.file_extension = file.extname  as string
+      profilePicture.userId = user.id
+      await profilePicture.save()
+
+
+      return response.created({
+        message: 'File Uploaded Successfully'
+      })
+     
+  } 
+
+
+
+
+    
+  public async downloadProfilePicture({ params, response }: HttpContextContract) {
+    const { userId } = params
+    const user = await User.findOrFail(userId)
+
+    const filePath = Application.tmpPath(`uploads/profiles/profile_picture.jpg`)
+
+    return response.attachment(filePath, user.profilePictureFileName)
+  }
 
 
 } 

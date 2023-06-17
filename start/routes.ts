@@ -10,9 +10,6 @@ Route.group(()=>{
    Route.get('/users/:id?' , 'UsersController.getUsers')
 
 
-
-
-
   Route.group(() => {
     
     
@@ -20,7 +17,16 @@ Route.group(()=>{
     
     Route.get('/tasks/:id', 'TasksController.getTask').middleware('auth').middleware('adminRoleAuthorization')
     Route.post('/tasks','TasksController.store').middleware('auth')
+    Route.post('users/profile-picture', 'UsersController.uploadProfilePicture').middleware('auth')
+    Route.post('/tasks/:taskId/attachement', 'TasksController.uploadTaskFile').middleware('auth')
+    //All Above Routes are tested
 
+   
+    
+    
+    //Route.post('tasks/:id/')
+
+    Route.get('users/:userId/profile-picture', 'UserController.downloadProfilePicture')
 
 
 

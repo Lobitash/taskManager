@@ -1,0 +1,70 @@
+
+### Get user By Id 
+GET http://localhost:3333/users/2
+content-type: application/json
+
+### Get user By Id 
+GET http://localhost:3333/tasks/2
+//content-type: application/json
+Authorization: Bearer NQ.p6wsjv9_7lkIcvo0erUqL7Db0X0wxb4EWIyW0VmWD4m9ObDzTJtZtRas48zQ
+
+### Sign up USer
+POST http://localhost:3333/auth/register
+content-type: application/json
+
+{
+    "name":"from Rest Cilent",
+    "email": "photod4@gmail.com", 
+    "password":"mypaassword",
+    "profile_picture": "must be photo Path"
+}
+
+###profile Picture
+POST http://localhost:3333/users/profile-picture
+content-type: application/json
+Authorization: Bearer NQ.p6wsjv9_7lkIcvo0erUqL7Db0X0wxb4EWIyW0VmWD4m9ObDzTJtZtRas48zQ
+
+{
+    "profile_picture" : "photo"
+}
+
+### login User
+POST http://localhost:3333/auth/login
+content-type: application/json
+
+{
+    "name":"from Rest Cilent",
+    "email": "negbfw@gmail.com", 
+    "password":"mypaassword"
+}
+
+
+
+### Added Token
+POST http://localhost:3333/tasks
+content-type: application/json
+Authorization: Bearer NQ.p6wsjv9_7lkIcvo0erUqL7Db0X0wxb4EWIyW0VmWD4m9ObDzTJtZtRas48zQ
+
+{
+    "name":"task2",
+    "description": "yes baby"
+}
+
+
+### post a new User
+POST http://localhost:3333/auth/signup
+content-type: application/json
+
+{
+    "email": "new@gmail.com", 
+    "password":"mypaassword"
+}
+
+
+### Update user
+PATCH http://localhost:3000/auth/10
+content-type: application/json
+
+{
+    "email": "PAtchdata@gmail.com"
+}

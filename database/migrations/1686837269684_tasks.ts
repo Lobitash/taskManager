@@ -9,6 +9,7 @@ export default class extends BaseSchema {
       table.increments('id').primary()
       table.string('name').notNullable()
       table.string('description').notNullable()
+      table.string('file').notNullable().defaultTo("no file attached")
       table.enum('priority', ['high','medium','low']).notNullable().defaultTo('medium')
       table.integer('user_Id').unsigned().references('id').inTable('users').onDelete('CASCADE')
       table.timestamp('created_at', {useTz: true}).notNullable().defaultTo(this.now())
