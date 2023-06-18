@@ -1,6 +1,14 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { BaseModel, column , hasOne , HasOne , beforeSave, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  column,
+  hasOne,
+  HasOne,
+  beforeSave,
+  belongsTo,
+  BelongsTo,
+} from '@ioc:Adonis/Lucid/Orm'
 import Role from './Role'
 import Task from './Task'
 import ProfilePicture from './ProfilePicture'
@@ -28,9 +36,9 @@ export default class User extends BaseModel {
 
   // @column()
   // public role: 'admin' | 'user'
- 
+
   @column()
-  public profile_picture: string
+  public photo_path: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -38,23 +46,21 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-
   @hasOne(() => ProfilePicture)
   public profile: HasOne<typeof ProfilePicture>
 
-  @belongsTo(()=> Task)
-  public tasks: BelongsTo<typeof Task>
+  // @belongsTo(() => Task)
+  // public tasks: BelongsTo<typeof Task>
 
-  @belongsTo(()=> Role)
-  public role: BelongsTo<typeof Role>
+  // @belongsTo(() => Role)
+  // public role: BelongsTo<typeof Role>
 
   @beforeSave()
-  public static async hashPassword (user : User) {
-    if(user.$dirty.password){
+  public static async hashPassword(user: User) {
+    if (user.$dirty.password) {
       user.password = await Hash.make(user.password)
     }
   }
-
 
   //@hasMany(() => Task)
   //public tasks: HasMany<typeof Task>

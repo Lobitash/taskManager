@@ -19,18 +19,17 @@ export default class Task extends BaseModel {
   public priority: 'high' | 'medium' | 'low'
 
   @column()
-  public userId: number;
+  public userId: number
 
   @column()
   public file: string
 
   @belongsTo(() => User)
-  public user: BelongsTo<typeof User>;
+  public user: BelongsTo<typeof User>
 
- @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-
 }

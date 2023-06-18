@@ -43,5 +43,6 @@ Server.middleware.register([
 */
 Server.middleware.registerNamed({
   auth: ()=> import ('App/Middleware/Auth'),
-  adminRoleAuthorization: ()=> import("App/Middleware/RoleAuthorization")
+  adminRoleAuthorization: ()=> import("App/Middleware/RoleAuthorization"),
+  TaskOwnerMiddleware: ()=> import('App/Middleware/taskOwner')
 })

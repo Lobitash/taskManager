@@ -17,7 +17,6 @@ export default class TaskFiles extends BaseModel {
   @column()
   public taskId: number
 
-  
   @belongsTo(() => Task)
   public task: BelongsTo<typeof Task>
 

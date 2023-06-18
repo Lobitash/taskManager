@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, belongsTo, BelongsTo, beforeSave } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 
 export default class ProfilePicture extends BaseModel {
@@ -17,7 +17,6 @@ export default class ProfilePicture extends BaseModel {
   @column()
   public userId: number
 
-  
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
 
@@ -26,4 +25,11 @@ export default class ProfilePicture extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @beforeSave()
+  public static async updateUsersTable(photo: ProfilePicture) {
+    const user = await photo.related('user').query().firstOrFail()
+    user.photo_path = photo.file_path
+    await user.save()
+  }
 }

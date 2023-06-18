@@ -15,7 +15,7 @@ export default driveConfig({
       visibility: 'public',
 
       
-      root: Application.tmpPath('uploads/profile-pictures'),
+      root: Application.tmpPath(),
 
     
       serveFiles: true,
