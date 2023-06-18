@@ -9,6 +9,7 @@ import fs from 'fs'
 export default class UsersController {
   public async users({ params, request }: HttpContextContract) {
     const { id } = params
+    const { search, sort } = request.qs()
 
     let query = User.query().select('name', 'id', 'photo_path', 'created_at')
 
@@ -17,6 +18,14 @@ export default class UsersController {
       return user
     } else {
       //const users = await query;
+      if (search) {
+        query = query.where('name', 'LIKE', `%${search}%`)
+      }
+
+      if (sort) {
+        query = query.orderBy(sort)
+      }
+
       const page = request.input('page', 1)
       const limit = request.input('limit', 10)
 

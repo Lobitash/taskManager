@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
+import { TaskPriority } from 'App/Enums/TaskEnums'
 
 export default class Task extends BaseModel {
   @column({ isPrimary: true })
@@ -16,7 +17,7 @@ export default class Task extends BaseModel {
   public attachmentPath: string
 
   @column()
-  public priority: 'high' | 'medium' | 'low'
+  public priority: TaskPriority
 
   @column()
   public userId: number
